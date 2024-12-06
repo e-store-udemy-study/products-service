@@ -1,6 +1,15 @@
 spring:
   application:
     name: products-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
 
 eureka:
   client:
@@ -8,3 +17,7 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     preferIpAddress: true
+    instanceId: ${spring.application.name}:${instanceId:${random.value}}
+
+server:
+  port: 0
