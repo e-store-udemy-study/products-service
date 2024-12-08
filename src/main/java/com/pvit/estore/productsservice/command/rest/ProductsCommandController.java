@@ -2,6 +2,7 @@ package com.pvit.estore.productsservice.command.rest;
 
 import com.pvit.estore.productsservice.command.CreateProductCommand;
 import com.pvit.estore.productsservice.model.CreateProductRestModel;
+import jakarta.validation.Valid;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class ProductsCommandController {
     }
 
     @PostMapping
-    public String createProduct(@RequestBody CreateProductRestModel createProductRestModel) {
+    public String createProduct(@Valid @RequestBody CreateProductRestModel createProductRestModel) {
 
         CreateProductCommand productCommand = CreateProductCommand.builder()
                 .price(createProductRestModel.getPrice())
@@ -31,15 +32,7 @@ public class ProductsCommandController {
                 .productId(UUID.randomUUID().toString())
                 .build();
 
-        String returnValue;
-
-        try {
-            returnValue = commandGateway.sendAndWait(productCommand);
-        } catch (Exception ex) {
-            returnValue = ex.getLocalizedMessage();
-        }
-
-        return returnValue;
+        return commandGateway.sendAndWait(productCommand);
     }
 
 }

@@ -21,3 +21,12 @@ eureka:
 
 server:
   port: 0
+  error:
+    include-message: always
+    include-binding-errors: always
+
+axon:
+  eventhandling:
+    processors:
+      product-group:
+        mode: subscribing
