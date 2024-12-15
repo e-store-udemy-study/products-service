@@ -38,8 +38,5 @@ public class ProductEventsHandler {
         } catch (IllegalArgumentException ex) {
             ex.printStackTrace();
         }
-
-        if(true) throw new Exception("Forcing exception in the event handler class");
-
     }
 }
